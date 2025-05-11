@@ -23,11 +23,24 @@ public class Screen extends JFrame implements Runnable {
 
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setLocation((screenSize.width - width)/2,  (screenSize.height - heigth)/2);
-        this.setSize(512,512);
-        this.pack();
         this.setTitle("Collision");
         this.setVisible(true);
         this.running = true;
+
+        this.add(camera);
+
+        this.pack();
     }
 
+    @Override
+    public void run() {
+        while(running) {
+            try {
+                camera.repaint();
+                Thread.sleep((int) this.frameDuration);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
 }
